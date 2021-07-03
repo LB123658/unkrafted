@@ -8,6 +8,9 @@
 * {
 font-family: 'Press Start 2P', cursive;
 }
+body {
+overflow: hidden;
+}
 #background {
   position: absolute;
   top: 0px;
@@ -58,12 +61,45 @@ font-family: 'Press Start 2P', cursive;
   height: 100%;
   background: black;
   animation: night 120s infinite;
+  z-index: 2;
 }
 @keyframes night {
   0% {opacity: 1;}
   20% {opacity: 0;}
   80% {opacity: 0;}
   100% {opacity: 1;}
+}
+#char {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  height: 50px;
+  width: 50px;
+  background: red;
+}
+#left {
+position: absolute;
+bottom: 0px;
+left: 0px;
+height: 50%;
+width: 50%;
+z-index: 3;
+}
+#right {
+position: absolute;
+bottom: 0px;
+right: 0px;
+height: 50%;
+width: 50%;
+z-index: 3;
+}
+#center {
+position: absolute;
+top: 0px;
+left: 0px;
+height: 50%;
+width: 100%;
+z-index: 3;
 }
 </style>
 </head>
@@ -72,14 +108,32 @@ font-family: 'Press Start 2P', cursive;
   <div id="ground"></div>
   <div id="sun"></div>
   <div id="shade"></div>
-<p id="clock">unkrafted</p>
-
+  <p id="clock">unkrafted</p>
+  <div id="char" title="Click to explode" onclick="explode()"></div>
+  
+  <div id="left" onmouseover="left()"></div>
+  <div id="right" onmouseover="right()"></div>
+  <div id="center" onmouseover="center()"></div>
+  
 <script>
+var char = document.getElementById("char");
 setInterval(myTimer, 1000);
 
 function myTimer() {
   const d = new Date();
   document.getElementById("clock").innerHTML = d.toLocaleTimeString();
+}
+function left() {
+char.style.left = "25%";
+}
+function right() {
+char.style.left = "75%";
+}
+function center() {
+char.style.left = "50%";
+}
+function explode() {
+document.body.innerHTML = "You exploded...<br><br>Game over<br><br>Play UNKRAFTED again";
 }
 </script>
 </body>
