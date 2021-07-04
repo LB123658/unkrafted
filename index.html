@@ -4,6 +4,7 @@
 <title>Unkrafted</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="icon" href="https://lb123658.github.io/unkrafted/favicon.ico" type="image/ico"/>
 <style>
 * {
 font-family: 'Press Start 2P', cursive;
@@ -76,30 +77,12 @@ overflow: hidden;
   height: 50px;
   width: 50px;
   background: red;
+  text-align: center;
+  line-height: 1.5;
+  margin-left: -25px;
 }
-#left {
-position: absolute;
-bottom: 0px;
-left: 0px;
-height: 50%;
-width: 50%;
-z-index: 3;
-}
-#right {
-position: absolute;
-bottom: 0px;
-right: 0px;
-height: 50%;
-width: 50%;
-z-index: 3;
-}
-#center {
-position: absolute;
-top: 0px;
-left: 0px;
-height: 50%;
-width: 100%;
-z-index: 3;
+#game {
+float: right;
 }
 </style>
 </head>
@@ -108,32 +91,46 @@ z-index: 3;
   <div id="ground"></div>
   <div id="sun"></div>
   <div id="shade"></div>
-  <p id="clock">unkrafted</p>
-  <div id="char" title="Click to explode" onclick="explode()"></div>
-  
-  <div id="left" onmouseover="left()"></div>
-  <div id="right" onmouseover="right()"></div>
-  <div id="center" onmouseover="center()"></div>
+  <p id="clock"><span id="time"></span> <span id="game">Unkrafted</span></p>
+  <div id="char">..<br><span style="font-size: 25px;">&UnderParenthesis;</span></div>
+
   
 <script>
 var char = document.getElementById("char");
+char.style.left = "50%";
+
 setInterval(myTimer, 1000);
 
 function myTimer() {
   const d = new Date();
-  document.getElementById("clock").innerHTML = d.toLocaleTimeString();
+  document.getElementById("time").innerHTML = d.toLocaleTimeString();
 }
+// jump functions
+document.body.onkeyup = function(e){  
+    if(e.keyCode == 32){
+        jump(); setTimeout(gravity, 500);
+    } else if(e.keyCode == 37){
+        left();
+    } else if(e.keyCode == 39){
+        right();
+    }
+}
+function jump() {
+char.style.bottom = "200px";
+}
+function gravity() {
+char.style.bottom = "100px";
+}
+
 function left() {
-char.style.left = "25%";
+var pos = char.style.left.split("%")[0];
+var newPos = +pos - 5;
+char.style.left = newPos + "%";
 }
 function right() {
-char.style.left = "75%";
-}
-function center() {
-char.style.left = "50%";
-}
-function explode() {
-document.body.innerHTML = "You exploded...<br><br>Game over<br><br>Play UNKRAFTED again";
+var rightPos = char.style.left.split("%")[0];
+var newrightPos = +rightPos + 5;
+char.style.left = newrightPos + "%";
 }
 </script>
 </body>
