@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,6 +118,8 @@ document.body.onkeyup = function(e){
         smile();
     } else if (e.keyCode == 50) {
         frown();
+    } else if (e.keyCode == 9) {
+        about();
     }
 }
 function jump() {
@@ -145,6 +148,17 @@ function frown() {
 char.innerHTML = "..<br>_";
 char.style.background = "blue";
 char.style.color = "white";
+}
+
+function about() {
+window.open("https://lb123658.github.io/unkrafted/game", "_blank");
+}
+
+//redirect to home page
+if (window.location.search == "?game=playing") {
+;
+} else {
+location.replace("https://lb123658.github.io/unkrafted/game");
 }
 </script>
 </body>
