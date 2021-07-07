@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<!-- MAIN GAME PAGE -->
 <head>
+<!-- MAIN GAME PAGE -->
 <title>Unkrafted</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -225,6 +225,7 @@ document.body.style.userSelect = "none";
 document.body.style.textAlign = "center";
 }
 
+//health stuff
 setInterval(health, 500);
 
 function health() {
@@ -237,6 +238,7 @@ function health() {
     salud.style.background = "#19bd44";
   }
 }
+// lose health
 function injure() {
 var width = salud.style.width.split("%")[0];
 var newWidth = +width - 10;
@@ -244,6 +246,7 @@ salud.style.width = newWidth + "%";
 salud.innerHTML = "Health: " + newWidth;
 }
 
+// lose health from dropping bomb
 setInterval(drop, 10000);
 
 function drop() {
@@ -254,13 +257,14 @@ function drop() {
   }
 }
 
+// increase health at night
+setInterval(revive, 120000);
 
-//redirect to home page
-if (window.location.search == "?game=playing") {
-;
-} else {
-location.replace("https://lb123658.github.io/unkrafted/game");
+function revive() {
+salud.style.width = "100%";
+salud.innerHTML = "Health increased...";
 }
 </script>
+<script src="redirect.js"></script>
 </body>
 </html>
