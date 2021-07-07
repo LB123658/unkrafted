@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<!-- MAIN GAME PAGE -->
 <head>
 <title>Unkrafted</title>
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -123,6 +124,25 @@ background: orange;
 background: red;
 color: white;
 }
+#bomb {
+position: absolute;
+top: 0%;
+left: 50%;
+width: 10px;
+height: 50px;
+margin-left: -5px;
+border: none;
+background: black;
+animation: falling 10s infinite;
+}
+@keyframes falling {
+ 0% {top: 0%; opacity: 0;}
+ 1% {top: 0%; opacity: 1;}
+ 10% {top: 100%; opacity: 1;}
+ 11% {top: 100%; opacity: 0;}
+ 12% {top: 0%; opacity: 0;}
+ 100% {top: 0%; opacity: 0;}
+}
 </style>
 </head>
 <body>
@@ -131,8 +151,9 @@ color: white;
   <div id="sun"></div>
   <div id="shade"></div>
   <div id="backHealth">
-    <button id="health"></button>
+    <button id="health">Health: 100</button>
   </div>
+  <button id="bomb"></button>
   <p id="clock"><span id="time"></span> <span id="game">Unkrafted</span></p>
   <div id="char">..<br><span style="font-size: 25px;">&UnderParenthesis;</span></div>
   
@@ -193,10 +214,6 @@ function frown() {
 char.innerHTML = "..<br>_";
 char.style.background = "blue";
 char.style.color = "white";
-
-var width = salud.style.width.split("%")[0];
-var newWidth = +width - 10;
-salud.style.width = newWidth + "%";
 }
 function about() {
 window.open("https://lb123658.github.io/unkrafted/game", "_blank");
@@ -213,7 +230,28 @@ setInterval(health, 500);
 function health() {
   if (salud.style.width.split("%")[0] < 1) {
     quit();
-  } 
+  } else if (salud.style.width.split("%")[0] < 40) {
+    salud.innerHTML = "Low"
+    salud.style.background = "red";
+  } else {
+    salud.style.background = "#19bd44";
+  }
+}
+function injure() {
+var width = salud.style.width.split("%")[0];
+var newWidth = +width - 10;
+salud.style.width = newWidth + "%";
+salud.innerHTML = "Health: " + newWidth;
+}
+
+setInterval(drop, 10000);
+
+function drop() {
+  if (char.style.left == "50%") {
+    injure();
+  } else {
+    ;
+  }
 }
 
 
