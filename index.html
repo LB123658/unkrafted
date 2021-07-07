@@ -84,6 +84,45 @@ overflow: hidden;
 #game {
 float: right;
 }
+#backHealth {
+position: absolute;
+top: 10px;
+left: 25%;
+width: 50%;
+height: 30px;
+background: rgba(0,0,0,0.5);
+}
+#health {
+position: absolute;
+top: 0px;
+left: 0px;
+width: 100%;
+height: 100%;
+border: none;
+background: #19bd44;
+}
+@media screen and (max-width: 750px) {
+  #backHealth {
+    visibility: hidden;
+  }
+}
+h1 {
+color: white;
+}
+#over {
+height: 50px;
+background: red;
+font-size: 20px;
+border: none;
+cursor: pointer;
+}
+#over:hover {
+background: orange;
+}
+#over:focus {
+background: red;
+color: white;
+}
 </style>
 </head>
 <body>
@@ -91,13 +130,18 @@ float: right;
   <div id="ground"></div>
   <div id="sun"></div>
   <div id="shade"></div>
+  <div id="backHealth">
+    <button id="health"></button>
+  </div>
   <p id="clock"><span id="time"></span> <span id="game">Unkrafted</span></p>
   <div id="char">..<br><span style="font-size: 25px;">&UnderParenthesis;</span></div>
-
   
+
 <script>
 var char = document.getElementById("char");
+var salud = document.getElementById("health");
 char.style.left = "50%";
+salud.style.width = "100%";
 
 setInterval(myTimer, 1000);
 
@@ -119,6 +163,8 @@ document.body.onkeyup = function(e){
         frown();
     } else if (e.keyCode == 73) {
         about();
+    } else if (e.keyCode == 81) {
+        quit();
     }
 }
 function jump() {
@@ -147,11 +193,29 @@ function frown() {
 char.innerHTML = "..<br>_";
 char.style.background = "blue";
 char.style.color = "white";
-}
 
+var width = salud.style.width.split("%")[0];
+var newWidth = +width - 10;
+salud.style.width = newWidth + "%";
+}
 function about() {
 window.open("https://lb123658.github.io/unkrafted/game", "_blank");
 }
+function quit() {
+document.body.innerHTML = "<br><br><br><br><h1>Game over</h1><br><br><button onclick='location.reload();' id='over'>Play Again</button";
+document.body.style.background = "#282828";
+document.body.style.userSelect = "none";
+document.body.style.textAlign = "center";
+}
+
+setInterval(health, 500);
+
+function health() {
+  if (salud.style.width.split("%")[0] < 1) {
+    quit();
+  } 
+}
+
 
 //redirect to home page
 if (window.location.search == "?game=playing") {
