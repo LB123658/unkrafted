@@ -1,4 +1,4 @@
-
+// embed this script in your site to show the day and night animation used in the game
 <!DOCTYPE html>
 <html>
 <head>
