@@ -1,5 +1,8 @@
 var char = document.getElementById("char");
 var salud = document.getElementById("health");
+var materials = document.getElementById("game");
+
+materials.innerHTML = "0";
 char.style.left = "50%";
 salud.style.width = "100%";
 
@@ -25,6 +28,8 @@ document.body.onkeyup = function(e){
         about();
     } else if (e.keyCode == 81) {
         quit();
+    } else if (e.keyCode == 66) {
+        build();
     }
 }
 function jump() {
@@ -65,7 +70,7 @@ document.body.style.textAlign = "center";
 }
 
 //health stuff
-setInterval(health, 500);
+setInterval(health, 100);
 
 function health() {
   if (salud.style.width.split("%")[0] < 1) {
@@ -85,12 +90,47 @@ salud.style.width = newWidth + "%";
 salud.innerHTML = "Health: " + newWidth;
 }
 
+// increase resources
+function resources() {
+materials.innerHTML = +materials.innerHTML + 1;
+}
+
+// build function
+function build() {
+  if (materials.innerHTML == "1") {
+    alert("You do not have anough materials to build");
+  } else {
+    var cube = document.createElement("div");
+    cube.style.zIndex = "-1";
+    cube.style.position = "absolute";
+    cube.style.width = "50px";
+    cube.style.height = "50px";
+    cube.style.marginLeft = "-25px";
+    cube.style.bottom = "100px";
+    cube.style.background = "brown";
+    cube.style.left = char.style.left;
+    document.body.appendChild(cube);
+    materials.innerHTML = +materials.innerHTML - 2;
+  }
+}
+
 // lose health from dropping bomb
 setInterval(drop, 10000);
 
 function drop() {
   if (char.style.left == "50%") {
     injure();
+  } else {
+    ;
+  }
+}
+
+// get resources from middle
+setInterval(getResources, 1500);
+
+function getResources() {
+  if (char.style.left == "50%") {
+    resources();
   } else {
     ;
   }
