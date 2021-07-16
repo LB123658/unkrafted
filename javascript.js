@@ -1,6 +1,7 @@
 var char = document.getElementById("char");
 var salud = document.getElementById("health");
 var materials = document.getElementById("game");
+var note = document.getElementById("note");
 
 materials.innerHTML = "0";
 char.style.left = "50%";
@@ -97,8 +98,8 @@ materials.innerHTML = +materials.innerHTML + 1;
 
 // build function
 function build() {
-  if (materials.innerHTML == "1") {
-    alert("You do not have anough materials to build");
+  if (materials.innerHTML < "2") {
+    say("You do not have enough materials to build");
   } else {
     var cube = document.createElement("div");
     cube.style.zIndex = "-1";
@@ -142,4 +143,10 @@ setInterval(revive, 120000);
 function revive() {
 salud.style.width = "100%";
 salud.innerHTML = "Health increased...";
+}
+
+// notify function
+function say(phrase) {
+  note.innerHTML = phrase;
+  setTimeout(function() { note.innerHTML = ""; }, 2000);
 }
